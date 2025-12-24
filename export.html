@@ -1,0 +1,905 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Export and promote your rockstar brand. Download print-ready materials, social media bundles, and web assets for your complete rockstar kit.">
+    <title>Export & Promote | RockMeAI</title>
+    <link rel="canonical" href="https://rockmeai.com/export">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #0A0E1A;
+            color: #FFFFFF;
+            min-height: 100vh;
+            line-height: 1.5;
+            background-image: url('https://im.runware.ai/image/ws/2/ii/d473666c-2911-4281-880d-c9fed2d48e65.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.4) 0%, rgba(10, 14, 26, 0.95) 100%);
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #FF00FF;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        header {
+            position: relative;
+            width: 100%;
+        }
+
+        nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+            background: rgba(10, 14, 26, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-rock {
+            color: #FFFFFF;
+        }
+
+        .logo-meai {
+            color: #FF00FF;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #FF00FF;
+        }
+
+        .nav-menu a.is-active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #FF00FF;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 80px 24px 120px;
+        }
+
+        .hero h1 {
+            font-size: 68px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #E5E7EB;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: -60px auto 0;
+            padding: 0 48px 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .export-cards-column {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .export-card {
+            background: #1A1E2E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 28px;
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+
+        .export-card:hover {
+            border-color: rgba(255, 0, 255, 0.5);
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.2);
+        }
+
+        .export-card-header {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 12px;
+        }
+
+        .export-icon {
+            font-size: 40px;
+            filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.4));
+        }
+
+        .export-card-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #FFFFFF;
+        }
+
+        .export-card-description {
+            font-size: 14px;
+            color: #E5E7EB;
+            opacity: 0.8;
+            margin-bottom: 16px;
+            line-height: 1.6;
+        }
+
+        .export-card-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 12px;
+            background: rgba(255, 0, 255, 0.1);
+            border: 1px solid rgba(255, 0, 255, 0.3);
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #FF00FF;
+        }
+
+        .status-indicator {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #FF00FF;
+            box-shadow: 0 0 8px rgba(255, 0, 255, 0.6);
+        }
+
+        .resolution-format-panel {
+            background: #1A1E2E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .panel-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #FFFFFF;
+            margin-bottom: 24px;
+        }
+
+        .control-group {
+            margin-bottom: 28px;
+        }
+
+        .control-group:last-of-type {
+            margin-bottom: 32px;
+        }
+
+        .control-label {
+            font-size: 15px;
+            font-weight: 600;
+            color: #FFFFFF;
+            margin-bottom: 12px;
+            display: block;
+        }
+
+        .dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-button {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(10, 14, 26, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-family: inherit;
+            text-align: left;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-button:hover {
+            border-color: #FF00FF;
+        }
+
+        .dropdown-button:focus {
+            outline: none;
+            border-color: #FF00FF;
+            box-shadow: 0 0 12px rgba(255, 0, 255, 0.3);
+        }
+
+        .dropdown-arrow {
+            font-size: 12px;
+            opacity: 0.6;
+        }
+
+        .dropdown-menu {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 0;
+            right: 0;
+            background: #1A1E2E;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 8px;
+            display: none;
+            z-index: 100;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+        }
+
+        .dropdown-menu.active {
+            display: block;
+        }
+
+        .dropdown-item {
+            padding: 12px 16px;
+            color: #FFFFFF;
+            font-size: 15px;
+            cursor: pointer;
+            border-radius: 8px;
+            transition: all 0.2s ease;
+        }
+
+        .dropdown-item:hover {
+            background: rgba(255, 0, 255, 0.1);
+            color: #FF00FF;
+        }
+
+        .toggle-group {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .toggle-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .toggle-label {
+            font-size: 15px;
+            font-weight: 500;
+            color: #FFFFFF;
+        }
+
+        .toggle-switch {
+            position: relative;
+            width: 48px;
+            height: 26px;
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 13px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-switch.active {
+            background: #FF00FF;
+        }
+
+        .toggle-slider {
+            position: absolute;
+            top: 3px;
+            left: 3px;
+            width: 20px;
+            height: 20px;
+            background: #FFFFFF;
+            border-radius: 50%;
+            transition: all 0.2s ease;
+        }
+
+        .toggle-switch.active .toggle-slider {
+            transform: translateX(22px);
+        }
+
+        .kit-preview-panel {
+            background: linear-gradient(135deg, rgba(26, 30, 46, 0.95) 0%, rgba(10, 14, 26, 0.95) 100%);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .kit-preview-panel::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255, 0, 255, 0.15) 0%, transparent 50%);
+            pointer-events: none;
+        }
+
+        .kit-header {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            margin-bottom: 32px;
+        }
+
+        .kit-title {
+            font-size: 28px;
+            font-weight: 800;
+            color: #FFFFFF;
+            margin-bottom: 8px;
+        }
+
+        .kit-subtitle {
+            font-size: 15px;
+            color: #E5E7EB;
+            opacity: 0.7;
+        }
+
+        .kit-showcase {
+            position: relative;
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 600px;
+            padding: 24px;
+        }
+
+        .kit-main-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 16px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+            border: 2px solid rgba(255, 0, 255, 0.3);
+        }
+
+        .kit-thumbnails {
+            position: absolute;
+            display: grid;
+            grid-template-columns: repeat(2, 140px);
+            gap: 16px;
+            z-index: 3;
+        }
+
+        .kit-thumbnails.top-left {
+            top: 20px;
+            left: 20px;
+        }
+
+        .kit-thumbnails.top-right {
+            top: 20px;
+            right: 20px;
+        }
+
+        .kit-thumbnails.bottom-left {
+            bottom: 20px;
+            left: 20px;
+        }
+
+        .kit-thumbnails.bottom-right {
+            bottom: 20px;
+            right: 20px;
+        }
+
+        .kit-thumbnail {
+            width: 140px;
+            height: auto;
+            border-radius: 12px;
+            border: 2px solid rgba(0, 255, 255, 0.4);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .kit-thumbnail:hover {
+            transform: scale(1.05);
+            border-color: #00FFFF;
+            box-shadow: 0 12px 32px rgba(0, 255, 255, 0.4);
+        }
+
+        .action-buttons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 24px;
+            margin-top: 48px;
+        }
+
+        .btn {
+            padding: 18px 48px;
+            font-size: 18px;
+            font-weight: 700;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background: #FF00FF;
+            color: #FFFFFF;
+            box-shadow: 0 8px 24px rgba(255, 0, 255, 0.4);
+        }
+
+        .btn-primary:hover {
+            background: #E600E6;
+            box-shadow: 0 12px 32px rgba(255, 0, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .btn-secondary {
+            background: #00FFFF;
+            color: #0A0E1A;
+            box-shadow: 0 8px 24px rgba(0, 255, 255, 0.4);
+        }
+
+        .btn-secondary:hover {
+            background: #00E6E6;
+            box-shadow: 0 12px 32px rgba(0, 255, 255, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .final-cta {
+            margin-top: 64px;
+            text-align: center;
+        }
+
+        .final-cta-button {
+            display: inline-block;
+            padding: 24px 64px;
+            font-size: 24px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #FF00FF 0%, #00FFFF 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+            text-decoration: none;
+            box-shadow: 0 12px 40px rgba(255, 0, 255, 0.5);
+        }
+
+        .final-cta-button:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 16px 56px rgba(255, 0, 255, 0.7);
+        }
+
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kit-thumbnails {
+                grid-template-columns: repeat(2, 120px);
+                gap: 12px;
+            }
+
+            .kit-thumbnail {
+                width: 120px;
+            }
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 20px 24px;
+            }
+
+            main {
+                padding: 0 24px 60px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+
+            .action-buttons {
+                grid-template-columns: 1fr;
+            }
+
+            .kit-thumbnails {
+                position: static;
+                margin-top: 24px;
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .kit-showcase {
+                flex-direction: column;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .nav-menu {
+                gap: 16px;
+                font-size: 14px;
+            }
+
+            .export-card {
+                padding: 20px;
+            }
+
+            .resolution-format-panel {
+                padding: 24px;
+            }
+
+            .final-cta-button {
+                padding: 20px 48px;
+                font-size: 20px;
+            }
+
+            .kit-thumbnails {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body data-page="export">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <div class="logo" aria-label="RockMeAI">
+                <span class="logo-rock">Rock</span><span class="logo-meai">MeAI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/create" data-nav-link>Create</a></li>
+                <li><a href="/" data-nav-link>Home</a></li>
+                <li><a href="/band" data-nav-link>Band & Stage</a></li>
+                <li><a href="/assets" data-nav-link>Assets</a></li>
+                <li><a href="/export" class="is-active" aria-current="page" data-nav-link>Export</a></li>
+                <li><a href="/login" data-nav-link>Login</a></li>
+            </ul>
+        </nav>
+
+        <section class="hero">
+            <h1>Export & Promote</h1>
+            <p>Download and deploy your complete rockstar kit online and offline.</p>
+        </section>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="content-grid">
+            <aside class="export-cards-column" role="complementary" aria-label="Export options">
+                <article class="export-card" role="button" tabindex="0" aria-label="Print-ready export option">
+                    <div class="export-card-header">
+                        <div class="export-icon">?</div>
+                        <h2 class="export-card-title">Print-ready</h2>
+                    </div>
+                    <p class="export-card-description">High-res posters, flyers, covers</p>
+                    <div class="export-card-status">
+                        <span class="status-indicator"></span>
+                        Ready
+                    </div>
+                </article>
+
+                <article class="export-card" role="button" tabindex="0" aria-label="Social bundle export option">
+                    <div class="export-card-header">
+                        <div class="export-icon">?</div>
+                        <h2 class="export-card-title">Social bundle</h2>
+                    </div>
+                    <p class="export-card-description">Optimized posts, stories, banners</p>
+                    <div class="export-card-status">
+                        <span class="status-indicator"></span>
+                        Ready
+                    </div>
+                </article>
+
+                <article class="export-card" role="button" tabindex="0" aria-label="Web assets export option">
+                    <div class="export-card-header">
+                        <div class="export-icon">??</div>
+                        <h2 class="export-card-title">Web assets</h2>
+                    </div>
+                    <p class="export-card-description">Website graphics, headers, icons</p>
+                    <div class="export-card-status">
+                        <span class="status-indicator"></span>
+                        Ready
+                    </div>
+                </article>
+
+                <section class="resolution-format-panel">
+                    <h3 class="panel-title">Resolution & Format</h3>
+                    
+                    <div class="control-group">
+                        <label class="control-label" for="resolution-dropdown">Resolution</label>
+                        <div class="dropdown">
+                            <button class="dropdown-button" id="resolution-dropdown" aria-haspopup="listbox" aria-expanded="false">
+                                <span class="dropdown-value">1080p</span>
+                                <span class="dropdown-arrow">?</span>
+                            </button>
+                            <div class="dropdown-menu" role="listbox">
+                                <div class="dropdown-item" role="option" data-value="1080p" data-resolution-option>1080p</div>
+                                <div class="dropdown-item" role="option" data-value="4K" data-resolution-option>4K</div>
+                                <div class="dropdown-item" role="option" data-value="8K" data-resolution-option>8K</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="control-group">
+                        <label class="control-label" for="format-dropdown">Format</label>
+                        <div class="dropdown">
+                            <button class="dropdown-button" id="format-dropdown" aria-haspopup="listbox" aria-expanded="false">
+                                <span class="dropdown-value">PNG</span>
+                                <span class="dropdown-arrow">?</span>
+                            </button>
+                            <div class="dropdown-menu" role="listbox">
+                                <div class="dropdown-item" role="option" data-value="PNG" data-format-select>PNG</div>
+                                <div class="dropdown-item" role="option" data-value="JPG" data-format-select>JPG</div>
+                                <div class="dropdown-item" role="option" data-value="PDF" data-format-select>PDF</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="toggle-group">
+                        <div class="toggle-item">
+                            <span class="toggle-label">Transparent Background</span>
+                            <div class="toggle-switch" role="switch" aria-checked="false" tabindex="0">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                        <div class="toggle-item">
+                            <span class="toggle-label">Color Profile</span>
+                            <div class="toggle-switch" role="switch" aria-checked="false" tabindex="0">
+                                <div class="toggle-slider"></div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+
+            <section class="kit-preview-panel" role="region" aria-label="Your rockstar kit preview">
+                <div class="kit-header">
+                    <h2 class="kit-title">Your Rockstar Kit</h2>
+                    <p class="kit-subtitle">Complete brand package ready to deploy</p>
+                </div>
+
+                <div class="kit-showcase">
+                    <div class="kit-thumbnails top-left">
+                        <img src="https://im.runware.ai/image/ws/2/ii/dd01dd20-1eb1-485d-b7f8-6bfb8bb261a1.jpg" alt="Rockstar promotional card design" class="kit-thumbnail">
+                        <img src="https://im.runware.ai/image/ws/2/ii/dd01dd20-1eb1-485d-b7f8-6bfb8bb261a1.jpg" alt="Rockstar social media story template" class="kit-thumbnail">
+                    </div>
+
+                    <img id="rockstar-preview" src="https://vibelife42.com/brycePreview.png" alt="Your Rockstar Character" class="kit-main-image" aria-label="Your Rockstar Character">
+
+                    <div class="kit-thumbnails top-right">
+                        <img src="https://im.runware.ai/image/ws/2/ii/dd01dd20-1eb1-485d-b7f8-6bfb8bb261a1.jpg" alt="Rockstar Instagram post template" class="kit-thumbnail">
+                        <img src="https://im.runware.ai/image/ws/2/ii/dd01dd20-1eb1-485d-b7f8-6bfb8bb261a1.jpg" alt="Rockstar web banner design" class="kit-thumbnail">
+                    </div>
+
+                    <div class="kit-thumbnails bottom-left">
+                        <img src="https://im.runware.ai/image/ws/2/ii/dd01dd20-1eb1-485d-b7f8-6bfb8bb261a1.jpg" alt="Rockstar poster design" class="kit-thumbnail">
+                        <img src="https://im.runware.ai/image/ws/2/ii/dd01dd20-1eb1-485d-b7f8-6bfb8bb261a1.jpg" alt="Rockstar album cover template" class="kit-thumbnail">
+                    </div>
+
+                    <div class="kit-thumbnails bottom-right">
+                        <img src="https://im.runware.ai/image/ws/2/ii/dd01dd20-1eb1-485d-b7f8-6bfb8bb261a1.jpg" alt="Rockstar circular logo design" class="kit-thumbnail">
+                        <img src="https://im.runware.ai/image/ws/2/ii/dd01dd20-1eb1-485d-b7f8-6bfb8bb261a1.jpg" alt="Rockstar profile card design" class="kit-thumbnail">
+                    </div>
+                </div>
+
+                <div class="action-buttons">
+                    <button class="btn btn-primary" aria-label="Download your rockstar kit">Download</button>
+                    <button class="btn btn-secondary" aria-label="Share your rockstar kit">Share</button>
+                </div>
+
+                <div class="final-cta">
+                    <button class="final-cta-button" aria-label="Launch your rockstar brand">Launch Your Rockstar Brand</button>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Dropdown functionality
+        const dropdowns = document.querySelectorAll('.dropdown');
+        
+        dropdowns.forEach(dropdown => {
+            const button = dropdown.querySelector('.dropdown-button');
+            const menu = dropdown.querySelector('.dropdown-menu');
+            const valueSpan = dropdown.querySelector('.dropdown-value');
+            const items = dropdown.querySelectorAll('.dropdown-item');
+            
+            button.addEventListener('click', () => {
+                const isExpanded = button.getAttribute('aria-expanded') === 'true';
+                
+                // Close all dropdowns
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
+                document.querySelectorAll('.dropdown-button').forEach(b => b.setAttribute('aria-expanded', 'false'));
+                
+                if (!isExpanded) {
+                    menu.classList.add('active');
+                    button.setAttribute('aria-expanded', 'true');
+                }
+            });
+            
+            items.forEach(item => {
+                item.addEventListener('click', () => {
+                    const value = item.getAttribute('data-value');
+                    valueSpan.textContent = value;
+                    menu.classList.remove('active');
+                    button.setAttribute('aria-expanded', 'false');
+                    console.log(`Selected ${dropdown.querySelector('.control-label').textContent}: ${value}`);
+                });
+            });
+        });
+
+        // Close dropdowns when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.dropdown')) {
+                document.querySelectorAll('.dropdown-menu').forEach(m => m.classList.remove('active'));
+                document.querySelectorAll('.dropdown-button').forEach(b => b.setAttribute('aria-expanded', 'false'));
+            }
+        });
+
+        // Toggle switches functionality
+        const toggleSwitches = document.querySelectorAll('.toggle-switch');
+        
+        toggleSwitches.forEach(toggle => {
+            toggle.addEventListener('click', () => {
+                const isActive = toggle.classList.contains('active');
+                toggle.classList.toggle('active');
+                toggle.setAttribute('aria-checked', !isActive);
+                
+                const label = toggle.previousElementSibling.textContent;
+                console.log(`${label} toggled: ${!isActive}`);
+            });
+            
+            toggle.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    toggle.click();
+                }
+            });
+        });
+
+        // Export card interactions
+        const exportCards = document.querySelectorAll('.export-card');
+        
+        exportCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const title = card.querySelector('.export-card-title').textContent;
+                console.log(`Export card clicked: ${title}`);
+                
+                // Visual feedback
+                card.style.transform = 'scale(0.98)';
+                setTimeout(() => {
+                    card.style.transform = 'scale(1)';
+                }, 150);
+            });
+            
+            card.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    card.click();
+                }
+            });
+        });
+
+        // Kit thumbnail interactions
+        const kitThumbnails = document.querySelectorAll('.kit-thumbnail');
+        const kitMainImage = document.querySelector('.kit-main-image');
+        
+        kitThumbnails.forEach(thumbnail => {
+            thumbnail.addEventListener('click', () => {
+                const tempSrc = kitMainImage.src;
+                kitMainImage.src = thumbnail.src;
+                thumbnail.src = tempSrc;
+                
+                console.log('Thumbnail clicked - image swapped');
+            });
+        });
+
+        // Action buttons
+        const downloadBtn = document.querySelector('.btn-primary');
+        const shareBtn = document.querySelector('.btn-secondary');
+        
+        downloadBtn.addEventListener('click', () => {
+            console.log('Download button clicked');
+            alert('Download functionality would be implemented here.');
+        });
+        
+        shareBtn.addEventListener('click', () => {
+            console.log('Share button clicked');
+            alert('Share functionality would be implemented here.');
+        });
+
+        // Final CTA button
+        const finalCtaButton = document.querySelector('.final-cta-button');
+        
+        finalCtaButton.addEventListener('click', () => {
+            console.log('Launch Your Rockstar Brand button clicked');
+            alert('Launching your rockstar brand experience!');
+        });
+
+        // Keyboard navigation support for export cards
+        exportCards.forEach((card, index) => {
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'ArrowDown' && exportCards[index + 1]) {
+                    exportCards[index + 1].focus();
+                } else if (e.key === 'ArrowUp' && exportCards[index - 1]) {
+                    exportCards[index - 1].focus();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
