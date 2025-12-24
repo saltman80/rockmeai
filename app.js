@@ -10,24 +10,29 @@
     // ============================================================================
     
     function setActiveNavigation() {
-        const currentPath = window.location.pathname;
         const navLinks = document.querySelectorAll('[data-nav-link]');
-        
+
+        const normalizeRoute = (pathname) => {
+            if (!pathname) return 'index';
+            const cleanPath = pathname.split('#')[0].split('?')[0];
+            const segments = cleanPath.split('/').filter(Boolean);
+            let last = segments.pop() || '';
+
+            if (!last) return 'index';
+            if (last === 'index.html') return 'index';
+            if (last.endsWith('.html')) return last.replace('.html', '');
+            return last;
+        };
+
+        const currentRoute = normalizeRoute(window.location.pathname);
+
         navLinks.forEach(link => {
             link.classList.remove('is-active');
             link.removeAttribute('aria-current');
-            
-            const linkPath = new URL(link.href, window.location.origin).pathname;
-            
-            // Handle index.html vs / path equivalence
-            let normalizedCurrentPath = currentPath;
-            if (currentPath === '/index.html' || currentPath === '/') {
-                normalizedCurrentPath = '/';
-            }
-            
-            if (linkPath === normalizedCurrentPath || 
-                (normalizedCurrentPath === '/' && linkPath === '/') ||
-                (normalizedCurrentPath.includes(linkPath) && linkPath !== '/')) {
+
+            const linkRoute = normalizeRoute(new URL(link.getAttribute('href'), window.location.href).pathname);
+
+            if (linkRoute === currentRoute) {
                 link.classList.add('is-active');
                 link.setAttribute('aria-current', 'page');
             }
