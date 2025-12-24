@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Build your band identity and live environment. Configure your band name, logo, venue, stage style, and brand sponsors for cinematic visuals.">
+    <title>Band, Stage & Venue Builder | RockMeAI</title>
+    <link rel="canonical" href="https://rockmeai.com/band">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #0A0E1A;
+            color: #FFFFFF;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #FF00FF;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        header {
+            position: relative;
+            width: 100%;
+            background-image: url('https://im.runware.ai/image/ws/2/ii/d473666c-2911-4281-880d-c9fed2d48e65.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.4) 0%, rgba(10, 14, 26, 0.95) 100%);
+            pointer-events: none;
+        }
+
+        nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+            background: rgba(10, 14, 26, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-rock {
+            color: #FFFFFF;
+        }
+
+        .logo-meai {
+            color: #FF00FF;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #FF00FF;
+        }
+
+        .nav-menu a.is-active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #FF00FF;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 80px 24px 120px;
+        }
+
+        .hero h1 {
+            font-size: 68px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #E5E7EB;
+            opacity: 0.9;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: -60px auto 0;
+            padding: 0 48px 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .controls-panel {
+            background: #1A1E2E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .control-section {
+            margin-bottom: 32px;
+        }
+
+        .control-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: block;
+            color: #FFFFFF;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 14px 18px;
+            background: rgba(10, 14, 26, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            color: #FFFFFF;
+            font-size: 16px;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: #FF00FF;
+            box-shadow: 0 0 12px rgba(255, 0, 255, 0.3);
+        }
+
+        .input-field::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        .logo-upload {
+            width: 168px;
+            height: 168px;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(10, 14, 26, 0.4);
+            position: relative;
+        }
+
+        .logo-upload:hover {
+            border-color: #FF00FF;
+            background: rgba(255, 0, 255, 0.05);
+        }
+
+        .logo-placeholder-icon {
+            font-size: 48px;
+            color: rgba(255, 255, 255, 0.4);
+            margin-bottom: 8px;
+        }
+
+        .logo-placeholder-text {
+            font-size: 14px;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+        }
+
+        .venue-cards {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .venue-card {
+            background: rgba(10, 14, 26, 0.6);
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 20px 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: center;
+        }
+
+        .venue-card:hover {
+            border-color: #FF00FF;
+            box-shadow: 0 0 12px rgba(255, 0, 255, 0.3);
+        }
+
+        .venue-card.active {
+            background: rgba(255, 0, 255, 0.15);
+            border-color: #FF00FF;
+        }
+
+        .venue-icon {
+            font-size: 48px;
+            margin-bottom: 8px;
+            display: block;
+            filter: drop-shadow(0 0 8px rgba(255, 0, 255, 0.3));
+        }
+
+        .venue-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .stage-cards {
+            display: grid;
+            gap: 16px;
+        }
+
+        .stage-card {
+            position: relative;
+            border-radius: 12px;
+            overflow: hidden;
+            cursor: pointer;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.2s ease;
+            height: 140px;
+        }
+
+        .stage-card:hover {
+            border-color: #FF00FF;
+            box-shadow: 0 0 16px rgba(255, 0, 255, 0.4);
+        }
+
+        .stage-card.active {
+            border-color: #FF00FF;
+            box-shadow: 0 0 20px rgba(255, 0, 255, 0.5);
+        }
+
+        .stage-card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .stage-card-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(180deg, transparent 0%, rgba(10, 14, 26, 0.95) 100%);
+            padding: 32px 16px 16px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .brand-icons-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .upload-all-link {
+            font-size: 14px;
+            color: #FF00FF;
+            text-decoration: none;
+            font-weight: 500;
+            cursor: pointer;
+            transition: color 0.2s ease;
+        }
+
+        .upload-all-link:hover {
+            color: #00FFFF;
+        }
+
+        .brand-icons-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+
+        .brand-icon-upload {
+            width: 100%;
+            aspect-ratio: 1;
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            background: rgba(10, 14, 26, 0.4);
+        }
+
+        .brand-icon-upload:hover {
+            border-color: #FF00FF;
+            background: rgba(255, 0, 255, 0.05);
+        }
+
+        .brand-icon-placeholder {
+            font-size: 32px;
+            color: rgba(255, 255, 255, 0.4);
+        }
+
+        .preview-panel {
+            background: #1A1E2E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        .preview-header {
+            background: rgba(10, 14, 26, 0.8);
+            padding: 16px 24px;
+            display: flex;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        .preview-tag {
+            padding: 8px 16px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        .preview-tag strong {
+            color: #FF00FF;
+        }
+
+        .preview-image-container {
+            position: relative;
+            width: 100%;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%);
+        }
+
+        .preview-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            nav {
+                padding: 20px 24px;
+            }
+
+            main {
+                padding: 0 24px 60px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .nav-menu {
+                gap: 20px;
+                font-size: 14px;
+            }
+
+            .controls-panel {
+                padding: 24px;
+            }
+
+            .venue-cards {
+                grid-template-columns: 1fr;
+            }
+
+            .brand-icons-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body data-page="band">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <div class="logo" aria-label="RockMeAI">
+                <span class="logo-rock">Rock</span><span class="logo-meai">MeAI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/create" data-nav-link>Create</a></li>
+                <li><a href="/" data-nav-link>Home</a></li>
+                <li><a href="/band" class="is-active" aria-current="page" data-nav-link>Band & Stage</a></li>
+                <li><a href="/assets" data-nav-link>Assets</a></li>
+                <li><a href="/export" data-nav-link>Export</a></li>
+                <li><a href="/login" data-nav-link>Login</a></li>
+            </ul>
+        </nav>
+
+        <section class="hero">
+            <h1>Band, Stage & Venue Builder</h1>
+            <p>RockMeAI builds a full band identity and live environment around you. Configure your band, venue, and stage for cinematic visuals.</p>
+        </section>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="content-grid">
+            <aside class="controls-panel" role="complementary" aria-label="Band and stage configuration controls">
+                <section class="control-section">
+                    <label class="control-label" for="band-name">Band name</label>
+                    <input 
+                        type="text" 
+                        id="band-name" 
+                        class="input-field" 
+                        placeholder="The Neon Rebels"
+                        aria-label="Enter your band name"
+                    >
+                </section>
+
+                <section class="control-section">
+                    <span class="control-label">Band logo</span>
+                    <div class="logo-upload" role="button" tabindex="0" aria-label="Upload band logo" data-action="simulate">
+                        <div class="logo-placeholder-icon">?</div>
+                        <div class="logo-placeholder-text">Click to upload</div>
+                    </div>
+                </section>
+
+                <section class="control-section">
+                    <span class="control-label">Venue</span>
+                    <div class="venue-cards" role="group" aria-label="Select venue type">
+                        <div class="venue-card active" data-venue="club" role="button" tabindex="0" aria-pressed="true">
+                            <span class="venue-icon">??</span>
+                            <div class="venue-label">Club</div>
+                        </div>
+                        <div class="venue-card" data-venue="arena" role="button" tabindex="0" aria-pressed="false">
+                            <span class="venue-icon">?</span>
+                            <div class="venue-label">Arena</div>
+                        </div>
+                        <div class="venue-card" data-venue="festival" role="button" tabindex="0" aria-pressed="false">
+                            <span class="venue-icon">?</span>
+                            <div class="venue-label">Festival</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="control-section">
+                    <span class="control-label">Stage style</span>
+                    <div class="stage-cards" role="group" aria-label="Select stage style">
+                        <div class="stage-card active" data-stage="intimate" role="button" tabindex="0" aria-pressed="true">
+                            <img src="https://im.runware.ai/image/ws/2/ii/0e30d6a4-7196-468c-9b5a-d4991ace051e.jpg" alt="Intimate stage with warm amber lighting and crowd" class="stage-card-image">
+                            <div class="stage-card-label">Intimate</div>
+                        </div>
+                        <div class="stage-card" data-stage="epic" role="button" tabindex="0" aria-pressed="false">
+                            <img src="https://im.runware.ai/image/ws/2/ii/0e30d6a4-7196-468c-9b5a-d4991ace051e.jpg" alt="Epic stage with dramatic lighting beams and large crowd" class="stage-card-image">
+                            <div class="stage-card-label">Epic</div>
+                        </div>
+                        <div class="stage-card" data-stage="openair" role="button" tabindex="0" aria-pressed="false">
+                            <img src="https://im.runware.ai/image/ws/2/ii/0e30d6a4-7196-468c-9b5a-d4991ace051e.jpg" alt="Open air festival stage at sunset with massive crowd" class="stage-card-image">
+                            <div class="stage-card-label">Open Air</div>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="control-section">
+                    <div class="brand-icons-header">
+                        <span class="control-label" style="margin-bottom: 0;">Brand icons</span>
+                        <a href="#" class="upload-all-link" aria-label="Upload all brand icons" data-action="simulate">Upload all</a>
+                    </div>
+                    <div class="brand-icons-grid">
+                        <div class="brand-icon-upload" role="button" tabindex="0" aria-label="Upload brand icon 1" data-action="simulate">
+                            <div class="brand-icon-placeholder">?</div>
+                        </div>
+                        <div class="brand-icon-upload" role="button" tabindex="0" aria-label="Upload brand icon 2" data-action="simulate">
+                            <div class="brand-icon-placeholder">?</div>
+                        </div>
+                        <div class="brand-icon-upload" role="button" tabindex="0" aria-label="Upload brand icon 3" data-action="simulate">
+                            <div class="brand-icon-placeholder">?</div>
+                        </div>
+                    </div>
+                </section>
+            </aside>
+
+            <section class="preview-panel" role="region" aria-label="Stage preview">
+                <div class="preview-header">
+                    <div class="preview-tag"><strong>Band name:</strong> The Neon Rebels</div>
+                    <div class="preview-tag"><strong>Venue:</strong> Arena</div>
+                </div>
+                <div class="preview-image-container">
+                    <img 
+                        src="https://vibelife42.com/brycePreview.png" 
+                        alt="Your Rockstar Character"
+                        class="preview-image"
+                        id="rockstar-preview"
+                        aria-label="Your Rockstar Character"
+                    >
+                </div>
+            </section>
+        </div>
+    </main>
+</body>
+</html>
