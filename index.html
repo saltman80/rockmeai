@@ -1,0 +1,869 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create your legendary rockstar character with AI-powered photo transformation. Choose your genre, mood, and style.">
+    <title>Create Your Rockstar Character | RockMeAI</title>
+    <link rel="canonical" href="https://rockmeai.com/">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #0A0E1A;
+            color: #FFFFFF;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #FF00FF;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        header {
+            position: relative;
+            width: 100%;
+            background-image: url('https://im.runware.ai/image/ws/2/ii/d473666c-2911-4281-880d-c9fed2d48e65.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.4) 0%, rgba(10, 14, 26, 0.95) 100%);
+            pointer-events: none;
+        }
+
+        nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+            background: rgba(10, 14, 26, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-rock {
+            color: #FFFFFF;
+        }
+
+        .logo-meai {
+            color: #FF00FF;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #FF00FF;
+        }
+
+        .nav-menu a.is-active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #FF00FF;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 80px 24px 120px;
+        }
+
+        .hero h1 {
+            font-size: 68px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #E5E7EB;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: -60px auto 0;
+            padding: 0 48px 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .controls-panel {
+            background: #1A1E2E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .control-section {
+            margin-bottom: 32px;
+        }
+
+        .control-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: block;
+            color: #FFFFFF;
+        }
+
+        .upload-area {
+            border: 2px dashed rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            padding: 48px 24px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .upload-area:hover {
+            border-color: rgba(255, 0, 255, 0.5);
+            background: rgba(255, 0, 255, 0.05);
+        }
+
+        .upload-icon {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 16px;
+            opacity: 0.5;
+        }
+
+        .upload-icon svg {
+            width: 100%;
+            height: 100%;
+            fill: #FFFFFF;
+        }
+
+        .upload-text {
+            font-size: 14px;
+            color: #E5E7EB;
+            opacity: 0.7;
+        }
+
+        textarea {
+            width: 100%;
+            background: rgba(10, 14, 26, 0.6);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            color: #FFFFFF;
+            font-family: inherit;
+            font-size: 14px;
+            resize: vertical;
+            min-height: 100px;
+            transition: border-color 0.2s ease;
+        }
+
+        textarea::placeholder {
+            color: rgba(255, 255, 255, 0.5);
+        }
+
+        textarea:focus {
+            outline: none;
+            border-color: #FF00FF;
+        }
+
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .pill {
+            padding: 10px 24px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .pill:hover {
+            border-color: #FF00FF;
+            box-shadow: 0 0 12px rgba(255, 0, 255, 0.3);
+        }
+
+        .pill.active {
+            background: #FF00FF;
+            border-color: #FF00FF;
+            color: #FFFFFF;
+        }
+
+        .pill.active-cyan {
+            background: #00FFFF;
+            border-color: #00FFFF;
+            color: #0A0E1A;
+        }
+
+        .button-primary {
+            width: 100%;
+            padding: 16px;
+            background: #FF00FF;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+            margin-bottom: 12px;
+        }
+
+        .button-primary:hover {
+            background: #E600E6;
+            box-shadow: 0 0 24px rgba(255, 0, 255, 0.5);
+        }
+
+        .button-primary:active {
+            transform: scale(0.98);
+        }
+
+        .button-primary.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .button-secondary {
+            width: 100%;
+            padding: 16px;
+            background: transparent;
+            color: #FFFFFF;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .button-secondary:hover {
+            border-color: #00FFFF;
+            box-shadow: 0 0 12px rgba(0, 255, 255, 0.3);
+        }
+
+        .button-secondary:active {
+            transform: scale(0.98);
+        }
+
+        .disclaimer {
+            font-size: 12px;
+            color: #E5E7EB;
+            opacity: 0.6;
+            text-align: center;
+            margin-top: 16px;
+        }
+
+        .preview-panel {
+            background: #1A1E2E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+            min-height: 800px;
+        }
+
+        .preview-label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 24px;
+            display: block;
+            color: #FFFFFF;
+        }
+
+        .preview-image-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%);
+        }
+
+        .preview-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            border-radius: 12px;
+        }
+
+        .progress-section {
+            margin-top: 32px;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 64px;
+            height: 64px;
+            margin: 0 auto 24px;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #00FFFF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        .spinner.active {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .progress-label {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            color: #FFFFFF;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-bottom: 8px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, #FF00FF 0%, #9945FF 33%, #4F46E5 66%, #00FFFF 100%);
+            border-radius: 8px;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+
+        .progress-segments {
+            display: flex;
+            gap: 4px;
+            justify-content: center;
+            margin-top: 16px;
+        }
+
+        .progress-segment {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.2);
+            transition: background 0.3s ease;
+        }
+
+        .progress-segment.active {
+            background: #FF00FF;
+        }
+
+        .progress-segment.complete {
+            background: #00FFFF;
+        }
+
+        .workflow-indicator {
+            position: fixed;
+            left: 28px;
+            top: 50%;
+            transform: translateY(-50%);
+            z-index: 20;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .workflow-step::before {
+            content: '';
+            position: absolute;
+            left: 13px;
+            top: 32px;
+            width: 2px;
+            height: 40px;
+            background: linear-gradient(180deg, #FF00FF 0%, rgba(255, 255, 255, 0.2) 100%);
+        }
+
+        .workflow-step:last-child::before {
+            display: none;
+        }
+
+        .workflow-dot {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #1A1E2E;
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            margin-right: 12px;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .workflow-step.active .workflow-dot {
+            background: #FF00FF;
+            border-color: #FF00FF;
+            box-shadow: 0 0 16px rgba(255, 0, 255, 0.6);
+        }
+
+        .workflow-step.complete .workflow-dot {
+            background: #00FFFF;
+            border-color: #00FFFF;
+        }
+
+        .workflow-label {
+            font-size: 13px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.5);
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            transform: rotate(180deg);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .workflow-step.active .workflow-label {
+            color: #FF00FF;
+        }
+
+        .workflow-step.complete .workflow-label {
+            color: #00FFFF;
+        }
+
+        @media (max-width: 1200px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .workflow-indicator {
+                display: none;
+            }
+
+            nav {
+                padding: 20px 24px;
+            }
+
+            main {
+                padding: 0 24px 60px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .nav-menu {
+                gap: 20px;
+            }
+
+            .controls-panel,
+            .preview-panel {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body data-page="create">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation" id="main-nav">
+            <div class="logo" aria-label="RockMeAI">
+                <span class="logo-rock">Rock</span><span class="logo-meai">MeAI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/create" class="is-active" aria-current="page" data-nav-link>Create</a></li>
+                <li><a href="/" data-nav-link>Home</a></li>
+                <li><a href="/band" data-nav-link>Band & Stage</a></li>
+                <li><a href="/assets" data-nav-link>Assets</a></li>
+                <li><a href="/export" data-nav-link>Export</a></li>
+                <li><a href="/login" data-nav-link>Login</a></li>
+            </ul>
+        </nav>
+
+        <section class="hero">
+            <h1>Create Your<br>Rockstar Character</h1>
+            <p>Transform your photo into a legendary rock persona with AI.</p>
+        </section>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="workflow-indicator" aria-hidden="true">
+            <div class="workflow-step active" data-step="upload">
+                <div class="workflow-dot"></div>
+                <span class="workflow-label">Upload</span>
+            </div>
+            <div class="workflow-step" data-step="configure">
+                <div class="workflow-dot"></div>
+                <span class="workflow-label">Configure</span>
+            </div>
+            <div class="workflow-step" data-step="generate">
+                <div class="workflow-dot"></div>
+                <span class="workflow-label">Generate</span>
+            </div>
+            <div class="workflow-step" data-step="refine">
+                <div class="workflow-dot"></div>
+                <span class="workflow-label">Refine</span>
+            </div>
+        </div>
+
+        <div class="content-grid">
+            <aside class="controls-panel" role="complementary" aria-label="Character creation controls">
+                <section class="control-section">
+                    <label class="control-label" for="image-upload">Image upload</label>
+                    <div class="upload-area" id="upload-area" role="button" tabindex="0" aria-label="Upload your photo">
+                        <div class="upload-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M11 15h2V9h3l-4-5-4 5h3z"/>
+                                <path d="M20 18H4v-7H2v7c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2v-7h-2v7z"/>
+                            </svg>
+                        </div>
+                        <p class="upload-text">Upload your photo</p>
+                    </div>
+                    <input type="file" id="image-upload" accept="image/*" style="display: none;" aria-label="Choose image file">
+                </section>
+
+                <section class="control-section">
+                    <label class="control-label" for="description">Describe Your Rockstar</label>
+                    <textarea 
+                        id="description" 
+                        placeholder="E.g., 80s glam metal, rebellious attitude, leather and studs..."
+                        aria-describedby="description-hint"
+                    ></textarea>
+                </section>
+
+                <section class="control-section">
+                    <span class="control-label">Genre</span>
+                    <div class="pill-group" role="group" aria-label="Select music genre">
+                        <button class="pill" data-genre="rock" data-genre-pill type="button">Rock</button>
+                        <button class="pill active" data-genre="metal" data-genre-pill type="button" aria-pressed="true">Metal</button>
+                        <button class="pill" data-genre="punk" data-genre-pill type="button">Punk</button>
+                        <button class="pill" data-genre="indie" data-genre-pill type="button">Indie</button>
+                        <button class="pill" data-genre="glam" data-genre-pill type="button">Glam</button>
+                    </div>
+                </section>
+
+                <section class="control-section">
+                    <span class="control-label">Lighting & Mood</span>
+                    <div class="pill-group" role="group" aria-label="Select lighting and mood">
+                        <button class="pill active-cyan" data-mood="moody" data-mood-toggle type="button" aria-pressed="true">Moody</button>
+                        <button class="pill" data-mood="arena" data-mood-toggle type="button">Arena</button>
+                        <button class="pill" data-mood="backlit" data-mood-toggle type="button">Backlit</button>
+                    </div>
+                </section>
+
+                <section class="control-section">
+                    <button class="button-primary" id="generate-btn" type="button" data-action="simulate">
+                        <span id="generate-text">Generate</span>
+                    </button>
+                    <button class="button-secondary" id="regenerate-btn" type="button" data-action="simulate">Regenerate</button>
+                    <p class="disclaimer">AI-powered character creation.<br>Results may vary.</p>
+                </section>
+            </aside>
+
+            <section class="preview-panel" role="region" aria-label="Character preview">
+                <span class="preview-label">Preview</span>
+                <div class="preview-image-container">
+                    <img 
+                        src="https://vibelife42.com/brycePreview.png" 
+                        alt="Preview of generated rockstar character with blonde hair, studded leather jacket, and flying V guitar on a rocky stage with colorful stage lights"
+                        class="preview-image"
+                        id="rockstar-preview"
+                        aria-label="Your Rockstar Character"
+                    >
+                </div>
+
+                <div class="progress-section" id="progress-section" style="display: none;">
+                    <div class="spinner" id="spinner"></div>
+                    <p class="progress-label" id="progress-label">Character generation</p>
+                    <div class="progress-bar-container" role="progressbar" aria-valuenow="0" data-progress-container>
+                        <div class="progress-bar" id="progress-bar"></div>
+                    </div>
+                    <div class="progress-segments" aria-hidden="true">
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                        <span class="progress-segment"></span>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        // Genre pill toggles
+        const genrePills = document.querySelectorAll('[data-genre]');
+        genrePills.forEach(pill => {
+            pill.addEventListener('click', function() {
+                genrePills.forEach(p => {
+                    p.classList.remove('active');
+                    p.setAttribute('aria-pressed', 'false');
+                });
+                this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
+                updateWorkflowStep('configure');
+            });
+        });
+
+        // Mood pill toggles
+        const moodPills = document.querySelectorAll('[data-mood]');
+        moodPills.forEach(pill => {
+            pill.addEventListener('click', function() {
+                moodPills.forEach(p => {
+                    p.classList.remove('active-cyan');
+                    p.setAttribute('aria-pressed', 'false');
+                });
+                this.classList.add('active-cyan');
+                this.setAttribute('aria-pressed', 'true');
+                updateWorkflowStep('configure');
+            });
+        });
+
+        // Upload area interactions
+        const uploadArea = document.getElementById('upload-area');
+        const imageUpload = document.getElementById('image-upload');
+
+        uploadArea.addEventListener('click', () => {
+            imageUpload.click();
+        });
+
+        uploadArea.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+                e.preventDefault();
+                imageUpload.click();
+            }
+        });
+
+        imageUpload.addEventListener('change', (e) => {
+            if (e.target.files && e.target.files[0]) {
+                uploadArea.innerHTML = `
+                    <div class="upload-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+                        </svg>
+                    </div>
+                    <p class="upload-text">Photo uploaded!</p>
+                    <input type="file" id="image-upload" accept="image/*" style="display: none;" aria-label="Choose image file">
+                `;
+                updateWorkflowStep('configure');
+            }
+        });
+
+        // Description textarea
+        const description = document.getElementById('description');
+        description.addEventListener('input', () => {
+            if (description.value.length > 10) {
+                updateWorkflowStep('configure');
+            }
+        });
+
+        // Generate button with simulated progress
+        const generateBtn = document.getElementById('generate-btn');
+        const regenerateBtn = document.getElementById('regenerate-btn');
+        const progressSection = document.getElementById('progress-section');
+        const spinner = document.getElementById('spinner');
+        const progressBar = document.getElementById('progress-bar');
+        const progressSegments = document.querySelectorAll('.progress-segment');
+        const generateText = document.getElementById('generate-text');
+
+        let isGenerating = false;
+
+        generateBtn.addEventListener('click', startGeneration);
+        regenerateBtn.addEventListener('click', startGeneration);
+
+        function startGeneration() {
+            if (isGenerating) return;
+            
+            isGenerating = true;
+            generateBtn.classList.add('loading');
+            generateBtn.disabled = true;
+            regenerateBtn.disabled = true;
+            
+            progressSection.style.display = 'block';
+            spinner.classList.add('active');
+            
+            updateWorkflowStep('generate');
+            
+            let progress = 0;
+            const interval = setInterval(() => {
+                progress += Math.random() * 8 + 2;
+                
+                if (progress >= 100) {
+                    progress = 100;
+                    clearInterval(interval);
+                    setTimeout(completeGeneration, 500);
+                }
+                
+                progressBar.style.width = progress + '%';
+                
+                const activeSegments = Math.floor((progress / 100) * progressSegments.length);
+                progressSegments.forEach((segment, index) => {
+                    if (index < activeSegments) {
+                        segment.classList.add('complete');
+                        segment.classList.remove('active');
+                    } else if (index === activeSegments) {
+                        segment.classList.add('active');
+                    } else {
+                        segment.classList.remove('active', 'complete');
+                    }
+                });
+            }, 200);
+        }
+
+        function completeGeneration() {
+            spinner.classList.remove('active');
+            progressBar.style.width = '100%';
+            progressSegments.forEach(segment => {
+                segment.classList.add('complete');
+                segment.classList.remove('active');
+            });
+            
+            setTimeout(() => {
+                progressSection.style.display = 'none';
+                progressBar.style.width = '0%';
+                progressSegments.forEach(segment => {
+                    segment.classList.remove('active', 'complete');
+                });
+                
+                isGenerating = false;
+                generateBtn.classList.remove('loading');
+                generateBtn.disabled = false;
+                regenerateBtn.disabled = false;
+                
+                updateWorkflowStep('refine');
+            }, 1000);
+        }
+
+        // Workflow indicator updates
+        function updateWorkflowStep(step) {
+            const steps = document.querySelectorAll('.workflow-step');
+            const stepOrder = ['upload', 'configure', 'generate', 'refine'];
+            const currentIndex = stepOrder.indexOf(step);
+            
+            steps.forEach((stepEl, index) => {
+                const stepName = stepEl.getAttribute('data-step');
+                const stepIndex = stepOrder.indexOf(stepName);
+                
+                if (stepIndex < currentIndex) {
+                    stepEl.classList.add('complete');
+                    stepEl.classList.remove('active');
+                } else if (stepIndex === currentIndex) {
+                    stepEl.classList.add('active');
+                    stepEl.classList.remove('complete');
+                } else {
+                    stepEl.classList.remove('active', 'complete');
+                }
+            });
+        }
+
+        // Keyboard accessibility for pills
+        document.querySelectorAll('.pill').forEach(pill => {
+            pill.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    pill.click();
+                }
+            });
+        });
+
+        // Initialize workflow
+        updateWorkflowStep('upload');
+    </script>
+    <script src="app.js" defer></script>
+</body>
+</html>
