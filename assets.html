@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate concert posters, tour flyers, album covers, and social media posts from your existing rock persona. Customize layouts and styles while keeping your unique identity.">
+    <title>Promotional Asset Generator | RockMeAI</title>
+    <link rel="canonical" href="https://rockmeai.com/assets">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            background-color: #0A0E1A;
+            color: #FFFFFF;
+            min-height: 100vh;
+            line-height: 1.5;
+        }
+
+        .skip-link {
+            position: absolute;
+            top: -40px;
+            left: 0;
+            background: #FF00FF;
+            color: white;
+            padding: 8px;
+            text-decoration: none;
+            z-index: 100;
+        }
+
+        .skip-link:focus {
+            top: 0;
+        }
+
+        header {
+            position: relative;
+            width: 100%;
+            background-image: url('https://im.runware.ai/image/ws/2/ii/d473666c-2911-4281-880d-c9fed2d48e65.jpg');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(180deg, rgba(10, 14, 26, 0.4) 0%, rgba(10, 14, 26, 0.95) 100%);
+            pointer-events: none;
+        }
+
+        nav {
+            position: relative;
+            z-index: 10;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 24px 48px;
+            background: rgba(10, 14, 26, 0.6);
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+        }
+
+        .logo-rock {
+            color: #FFFFFF;
+        }
+
+        .logo-meai {
+            color: #FF00FF;
+        }
+
+        .nav-menu {
+            display: flex;
+            gap: 32px;
+            list-style: none;
+            align-items: center;
+        }
+
+        .nav-menu a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.2s ease;
+            position: relative;
+        }
+
+        .nav-menu a:hover {
+            color: #FF00FF;
+        }
+
+        .nav-menu a.is-active::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            right: 0;
+            height: 2px;
+            background: #FF00FF;
+        }
+
+        .hero {
+            position: relative;
+            z-index: 5;
+            text-align: center;
+            padding: 80px 24px 120px;
+        }
+
+        .hero h1 {
+            font-size: 68px;
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: #E5E7EB;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        main {
+            max-width: 1400px;
+            margin: -60px auto 0;
+            padding: 0 48px 80px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .content-grid {
+            display: grid;
+            grid-template-columns: 280px 1fr;
+            gap: 32px;
+            align-items: start;
+        }
+
+        .controls-panel {
+            background: #1A1E2E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 32px;
+        }
+
+        .control-section {
+            margin-bottom: 32px;
+        }
+
+        .control-section:last-child {
+            margin-bottom: 0;
+        }
+
+        .control-label {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 16px;
+            display: block;
+            color: #FFFFFF;
+        }
+
+        .pill-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .pill {
+            padding: 10px 24px;
+            border-radius: 24px;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            background: transparent;
+            color: #FFFFFF;
+            font-size: 14px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .pill:hover {
+            border-color: #FF00FF;
+            box-shadow: 0 0 12px rgba(255, 0, 255, 0.3);
+        }
+
+        .pill.active {
+            background: #FF00FF;
+            border-color: #FF00FF;
+            color: #FFFFFF;
+        }
+
+        .slider-container {
+            margin-top: 8px;
+        }
+
+        .slider {
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.2) 100%);
+            outline: none;
+            -webkit-appearance: none;
+            position: relative;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FF00FF;
+            cursor: pointer;
+            box-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+        }
+
+        .slider::-moz-range-thumb {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #FF00FF;
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 0 8px rgba(255, 0, 255, 0.5);
+        }
+
+        .slider-track {
+            position: absolute;
+            width: 100%;
+            height: 6px;
+            border-radius: 3px;
+            background: linear-gradient(90deg, #FF00FF 0%, #00FFFF 100%);
+            pointer-events: none;
+            opacity: 0.8;
+        }
+
+        .slider-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 8px;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+        }
+
+        .button-primary {
+            width: 100%;
+            padding: 16px;
+            background: linear-gradient(135deg, #FF00FF 0%, #00FFFF 100%);
+            color: #FFFFFF;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-family: inherit;
+        }
+
+        .button-primary:hover {
+            box-shadow: 0 0 24px rgba(255, 0, 255, 0.5);
+            transform: translateY(-1px);
+        }
+
+        .button-primary:active {
+            transform: scale(0.98);
+        }
+
+        .button-primary.loading {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .button-note {
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.6);
+            text-align: center;
+            margin-top: 12px;
+            font-style: italic;
+        }
+
+        .assets-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+        }
+
+        .asset-card {
+            background: #1A1E2E;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 16px;
+            padding: 20px;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .asset-card:hover {
+            border-color: rgba(255, 0, 255, 0.4);
+            box-shadow: 0 4px 20px rgba(255, 0, 255, 0.15);
+        }
+
+        .asset-tag {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            padding: 6px 14px;
+            background: rgba(10, 14, 26, 0.9);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #FFFFFF;
+            text-transform: capitalize;
+            z-index: 2;
+        }
+
+        .asset-image-container {
+            position: relative;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(255, 0, 255, 0.1) 0%, rgba(0, 255, 255, 0.1) 100%);
+            margin-bottom: 16px;
+        }
+
+        .asset-image {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .asset-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFFFFF;
+            text-align: center;
+        }
+
+        .spinner {
+            width: 48px;
+            height: 48px;
+            margin: 0 auto;
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-top: 4px solid #00FFFF;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: none;
+        }
+
+        .spinner.active {
+            display: block;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .loading-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(10, 14, 26, 0.95);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            flex-direction: column;
+        }
+
+        .loading-overlay.active {
+            display: flex;
+        }
+
+        .loading-text {
+            margin-top: 24px;
+            font-size: 18px;
+            font-weight: 600;
+            color: #FFFFFF;
+        }
+
+        @media (max-width: 1200px) {
+            .assets-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        @media (max-width: 992px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                padding: 20px 24px;
+            }
+
+            main {
+                padding: 0 24px 60px;
+            }
+
+            .hero h1 {
+                font-size: 48px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 36px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .nav-menu {
+                gap: 20px;
+            }
+
+            .controls-panel {
+                padding: 24px;
+            }
+        }
+    </style>
+</head>
+<body data-page="assets">
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <nav role="navigation" aria-label="Main navigation">
+            <div class="logo" aria-label="RockMeAI">
+                <span class="logo-rock">Rock</span><span class="logo-meai">MeAI</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="/create" data-nav-link>Home</a></li>
+                <li><a href="/band" data-nav-link>Band & Stage</a></li>
+                <li><a href="/assets" data-nav-link class="is-active" aria-current="page">Assets</a></li>
+                <li><a href="/export" data-nav-link>Export</a></li>
+                <li><a href="/login" data-nav-link>Login</a></li>
+            </ul>
+        </nav>
+
+        <section class="hero">
+            <h1>Promotional Asset<br>Generator</h1>
+            <p>Generate concert posters, tour flyers, album covers, and social media posts from your existing rock persona. Customize layouts and styles while keeping your unique identity.</p>
+        </section>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="content-grid">
+            <aside class="controls-panel" role="complementary" aria-label="Asset generation controls">
+                <section class="control-section">
+                    <span class="control-label">Format</span>
+                    <div class="pill-group" role="group" aria-label="Select asset format">
+                        <button class="pill active" data-format-select="print" type="button" aria-pressed="true">Print</button>
+                        <button class="pill" data-format-select="social" type="button">Social</button>
+                        <button class="pill" data-format-select="banner" type="button">Banner</button>
+                    </div>
+                </section>
+
+                <section class="control-section">
+                    <label class="control-label" for="style-intensity">Style Intensity</label>
+                    <div class="slider-container">
+                        <input 
+                            type="range" 
+                            id="style-intensity" 
+                            class="slider" 
+                            min="0" 
+                            max="100" 
+                            value="60"
+                            aria-label="Adjust style intensity from subtle to extreme"
+                        >
+                        <div class="slider-labels">
+                            <span>Subtle</span>
+                            <span>Extreme</span>
+                        </div>
+                    </div>
+                </section>
+
+                <section class="control-section">
+                    <button class="button-primary" id="regenerate-btn" type="button" data-action="simulate">
+                        <span id="btn-text">Regenerate Assets</span>
+                    </button>
+                    <p class="button-note">AI recomposes assets while keeping the same rockstar.</p>
+                </section>
+            </aside>
+
+            <section class="assets-grid" role="region" aria-label="Generated promotional assets">
+                <article class="asset-card">
+                    <span class="asset-tag">Poster</span>
+                    <div class="asset-image-container">
+                        <img 
+                            src="https://vibelife42.com/brycePreview.png" 
+                            alt="Concert poster featuring rockstar with blonde hair and leather jacket against vibrant magenta and cyan graphics"
+                            class="asset-image"
+                            id="rockstar-preview"
+                            aria-label="Your Rockstar Character"
+                        >
+                    </div>
+                    <h2 class="asset-title">Concert Poster</h2>
+                </article>
+
+                <article class="asset-card">
+                    <span class="asset-tag">Flyer</span>
+                    <div class="asset-image-container">
+                        <img 
+                            src="https://vibelife42.com/brycePreview.png" 
+                            alt="Tour flyer with rockstar in bold typography and neon color scheme"
+                            class="asset-image"
+                            id="rockstar-preview"
+                            aria-label="Your Rockstar Character"
+                        >
+                    </div>
+                    <h2 class="asset-title">Tour Flyer</h2>
+                </article>
+
+                <article class="asset-card">
+                    <span class="asset-tag">Album</span>
+                    <div class="asset-image-container">
+                        <img 
+                            src="https://vibelife42.com/brycePreview.png" 
+                            alt="Album cover featuring rockstar with circular geometric design and purple gradients"
+                            class="asset-image"
+                            id="rockstar-preview"
+                            aria-label="Your Rockstar Character"
+                        >
+                    </div>
+                    <h2 class="asset-title">Album Cover</h2>
+                </article>
+
+                <article class="asset-card">
+                    <span class="asset-tag">Social</span>
+                    <div class="asset-image-container">
+                        <img 
+                            src="https://vibelife42.com/brycePreview.png" 
+                            alt="Social media post with rockstar and vibrant border decorations for Instagram or Facebook"
+                            class="asset-image"
+                            id="rockstar-preview"
+                            aria-label="Your Rockstar Character"
+                        >
+                    </div>
+                    <h2 class="asset-title">Social Media Post</h2>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <div class="loading-overlay" id="loading-overlay" role="alert" aria-live="polite" aria-label="Generating assets">
+        <div class="spinner active"></div>
+        <p class="loading-text">Regenerating assets...</p>
+    </div>
+
+    <script>
+        // Format pill toggles
+        const formatPills = document.querySelectorAll('[data-format-select]');
+        formatPills.forEach(pill => {
+            pill.addEventListener('click', function() {
+                formatPills.forEach(p => {
+                    p.classList.remove('active');
+                    p.setAttribute('aria-pressed', 'false');
+                });
+                this.classList.add('active');
+                this.setAttribute('aria-pressed', 'true');
+            });
+        });
+
+        // Style intensity slider visual feedback
+        const slider = document.getElementById('style-intensity');
+        slider.addEventListener('input', function() {
+            const value = this.value;
+            const percent = (value / 100) * 100;
+            this.style.background = `linear-gradient(90deg, #FF00FF ${percent}%, rgba(255, 255, 255, 0.2) ${percent}%)`;
+        });
+
+        // Initialize slider background
+        slider.dispatchEvent(new Event('input'));
+
+        // Regenerate button with simulated loading
+        const regenerateBtn = document.getElementById('regenerate-btn');
+        const loadingOverlay = document.getElementById('loading-overlay');
+        const btnText = document.getElementById('btn-text');
+
+        let isRegenerating = false;
+
+        regenerateBtn.addEventListener('click', function() {
+            if (isRegenerating) return;
+            
+            isRegenerating = true;
+            regenerateBtn.classList.add('loading');
+            regenerateBtn.disabled = true;
+            
+            loadingOverlay.classList.add('active');
+            
+            // Simulate generation time
+            setTimeout(() => {
+                loadingOverlay.classList.remove('active');
+                regenerateBtn.classList.remove('loading');
+                regenerateBtn.disabled = false;
+                isRegenerating = false;
+                
+                // Optional: Show success feedback
+                btnText.textContent = 'Assets Regenerated!';
+                setTimeout(() => {
+                    btnText.textContent = 'Regenerate Assets';
+                }, 2000);
+            }, 3000);
+        });
+
+        // Keyboard accessibility for pills
+        document.querySelectorAll('.pill').forEach(pill => {
+            pill.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    pill.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
